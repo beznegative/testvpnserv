@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/testvpnserv/static/css/main.a7064e9c.css",
+    "main.css": "/testvpnserv/static/css/main.a443b046.css",
     "main.js": "/testvpnserv/static/js/main.f103094a.js",
     "index.html": "/testvpnserv/index.html",
-    "main.a7064e9c.css.map": "/testvpnserv/static/css/main.a7064e9c.css.map",
+    "main.a443b046.css.map": "/testvpnserv/static/css/main.a443b046.css.map",
     "main.f103094a.js.map": "/testvpnserv/static/js/main.f103094a.js.map"
   },
   "entrypoints": [
-    "static/css/main.a7064e9c.css",
+    "static/css/main.a443b046.css",
     "static/js/main.f103094a.js"
   ]
 }
