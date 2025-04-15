@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/testvpnserv/static/css/main.b93a61f8.css",
+    "main.js": "/testvpnserv/static/js/main.183d587f.js",
+    "index.html": "/testvpnserv/index.html",
+    "main.b93a61f8.css.map": "/testvpnserv/static/css/main.b93a61f8.css.map",
+    "main.183d587f.js.map": "/testvpnserv/static/js/main.183d587f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b93a61f8.css",
+    "static/js/main.183d587f.js"
+  ]
+}
