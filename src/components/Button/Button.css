@@ -1,8 +1,15 @@
 .button {
-    padding: 10px 15px;
-    background: var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
-    border: none;
-    outline: none;
-    cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 2px 8px rgba(77,166,255,0.15);
+}
+.button:hover {
+  background: var(--accent);
 }

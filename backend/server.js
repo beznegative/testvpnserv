@@ -3,6 +3,7 @@ const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
+const https = require('https');
 
 // Настройки Telegram бота
 const token = '7512183473:AAHiP4JgZ57tdV1KsLhZS3I5bnu3HTkxA9g';
@@ -13,7 +14,11 @@ const app = express();
 const PORT = 3000; // Изменен порт с 8000 на 3000
 const USERS_FILE = path.join(__dirname, 'users.json');
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Обработка команд в Telegram боте
@@ -31,6 +36,12 @@ bot.on('message', async (msg) => {
         });
     }
 });
+
+// Создаем пустой файл users.json, если он не существует
+if (!fs.existsSync(USERS_FILE)) {
+    fs.writeFileSync(USERS_FILE, '[]', 'utf8');
+    console.log('Created empty users.json file');
+}
 
 // Получить всех пользователей (для админа)
 app.get('/users', (req, res) => {
@@ -79,7 +90,13 @@ app.get('/bot-status', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
-    console.log(`Telegram bot started. Use /start command to interact.`);
+// Настройка HTTPS сервера
+const httpsOptions = {
+  key: fs.readFileSync(path.join(__dirname, 'ssl/key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'ssl/cert.pem'))
+};
+
+https.createServer(httpsOptions, app).listen(PORT, '0.0.0.0', () => {
+  console.log(`HTTPS Server running on https://beznegativa.space:${PORT}`);
+  console.log(`Telegram bot started. Use /start command to interact.`);
 });

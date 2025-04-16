@@ -1,44 +1,64 @@
 import React from 'react';
 import './TabBar.css';
 
-const icons = {
-    home: (
-        <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M3 11L12 4l9 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 21V13h6v8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 21H3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-    ),
-    vpn: (
-        <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#fff" strokeWidth="2"/><path d="M7 12a5 5 0 0 1 10 0" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-    ),
-    admin: (
-        <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M12 4L4 8l8 4 8-4-8-4z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 12l8 4 8-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 16l8 4 8-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-    ),
-    users: (
-        <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><circle cx="8" cy="8" r="4" stroke="#fff" strokeWidth="2"/><circle cx="16" cy="8" r="4" stroke="#fff" strokeWidth="2"/><path d="M2 20c0-3.314 5.373-6 12-6s12 2.686 12 6" stroke="#fff" strokeWidth="2"/></svg>
+const tabs = [
+  {
+    name: 'Home',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+        <path className="active_svg" fill="currentColor" fillOpacity="0.5" d="M14.933 21.61H9.804v-6.425c0-.49.327-.792.805-.792h3.532c.49 0 .792.302.792.792v6.424Zm-11.327-.466c0 1.433.867 2.276 2.326 2.276H18.83c1.458 0 2.326-.843 2.326-2.276v-7.417L12.96 6.862a.84.84 0 0 0-1.157 0l-8.197 6.865v7.417Zm-3.231-8.7c0 .466.365.906.98.906.315 0 .579-.176.805-.365l9.894-8.31a.483.483 0 0 1 .654 0l9.894 8.31c.24.189.503.365.817.365.528 0 .956-.327.956-.868 0-.34-.1-.566-.34-.767L13.651 2.99c-.78-.653-1.748-.653-2.527 0L.727 11.715a.964.964 0 0 0-.352.73ZM18.441 7.68l2.716 2.288V5.392c0-.478-.315-.78-.78-.78h-1.131c-.478 0-.805.302-.805.78V7.68Z"></path>
+      </svg>
     )
+  },
+  {
+    name: 'VPN',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+        <g className="active_svg" fill="currentColor" fillOpacity="0.5" clipPath="url(#a)">
+          <path fillRule="evenodd" d="M11.32 12.431c.017 1.171.16 2.327.422 3.452a1.73 1.73 0 0 1 1.278 1.039l.184-.009v1.435l-.237.01a1.737 1.737 0 0 1-.27.392c.187.425.391.843.614 1.252a4.638 4.638 0 0 0 .85 1.921c.207.276.444.534.709.782a10.75 10.75 0 0 1-3.796.692C5.103 23.397.124 18.432.124 12.45.125 6.466 5.091 1.5 11.06 1.5c5.472 0 10.115 4.153 10.869 9.44-.388-.136-.7-.246-.83-.296a3.368 3.368 0 0 0-.94-.247 9.13 9.13 0 0 0-.162-.6c-.313.236-.635.458-.965.664a3.481 3.481 0 0 0-.32.088 94.383 94.383 0 0 0-3.357 1.214c-.1.04-.186.074-.252.102a3.513 3.513 0 0 0-.658.368 2.853 2.853 0 0 0-.683.676 1.733 1.733 0 0 1-.543-.511 13.429 13.429 0 0 1-1.9.033ZM2.63 8.57a9.152 9.152 0 0 0-.843 4.503 16.514 16.514 0 0 0 3.33 2.171 17.68 17.68 0 0 1 .345-3.286 1.731 1.731 0 0 1-.68-1.648 13.302 13.302 0 0 1-2.152-1.74Zm2.945.524a11.731 11.731 0 0 1-2.19-1.85c1.503-2.203 3.918-3.752 6.666-4.06A17.777 17.777 0 0 0 6.401 8.83a1.722 1.722 0 0 0-.825.265Zm2.188 2.659a1.742 1.742 0 0 1-.895.507 16.344 16.344 0 0 0-.31 3.61c1.082.409 2.2.702 3.335.876.113-.2.264-.376.445-.517a17.875 17.875 0 0 1-.46-3.951 13.24 13.24 0 0 1-2.115-.525Zm5.212-.778a11.912 11.912 0 0 1-1.615.016 16.05 16.05 0 0 1 2.063-6.823 13.195 13.195 0 0 0-.383 3.193c.003.986.116 1.956.332 2.894a1.716 1.716 0 0 0-.396.72Zm3.017-.642a11.733 11.733 0 0 0 3.447-1.939 9.567 9.567 0 0 0-4.483-4.392 11.926 11.926 0 0 0-.478 3.359c.003.795.085 1.576.242 2.335.513.02.969.264 1.272.637ZM12.11 3.189A16.412 16.412 0 0 0 7.74 9.35c.268.274.448.635.49 1.033.553.188 1.122.334 1.703.439a17.757 17.757 0 0 1 2.377-7.609 9.076 9.076 0 0 0-.199-.025Zm.487 18.452a17.6 17.6 0 0 1-1.236-2.329 1.75 1.75 0 0 1-1.577-1.132 17.917 17.917 0 0 1-3.12-.744c.144 1.233.433 2.44.867 3.612a9.081 9.081 0 0 0 5.066.593Zm-6.914-1.635a17.624 17.624 0 0 1-.518-3.149 17.678 17.678 0 0 1-2.975-1.665 9.507 9.507 0 0 0 3.493 4.814Z" clipRule="evenodd"></path>
+          <path d="M24.125 18.784v-3.893c0-.584-.217-.99-.828-1.248-.556-.245-2.794-.977-3.215-1.154a1.553 1.553 0 0 0-1.153-.054c-.543.19-2.754.963-3.31 1.207-.611.258-.842.665-.842 1.249v3.893c0 2.103 1.262 2.85 4.22 4.613a.966.966 0 0 0 .922 0c2.958-1.764 4.206-2.51 4.206-4.613Zm-4.667 2.944c-.109.014-.217-.013-.353-.095-2.252-1.33-2.754-1.655-2.754-3.08v-3.106c0-.271.095-.434.434-.543.774-.285 1.52-.556 2.293-.868a.911.911 0 0 1 .38-.04v7.732Z"></path>
+        </g>
+        <defs>
+          <clipPath id="a">
+            <path fill="#fff" d="M.125.5h24v24h-24z"></path>
+          </clipPath>
+        </defs>
+      </svg>
+    )
+  },
+  {
+    name: 'Admin',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/><path d="M4 20v-2c0-2.21 3.58-4 8-4s8 1.79 8 4v2" stroke="currentColor" strokeWidth="2"/></svg>
+    ),
+    adminOnly: true
+  },
+  {
+    name: 'Users',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M8 7h8M8 11h8M8 15h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+    ),
+    adminOnly: true
+  }
+];
+
+const TabBar = ({activeTab, onChangeTab, isAdmin}) => {
+  return (
+    <nav className="tab-bar">
+      {tabs
+        .filter(tab => !tab.adminOnly || isAdmin)
+        .map(tab => (
+          <button
+            key={tab.name}
+            className={activeTab === tab.name.toLowerCase() ? 'active' : ''}
+            onClick={() => onChangeTab(tab.name.toLowerCase())}
+          >
+            <span className="tab-icon">{tab.icon}</span>
+            <span>{tab.name}</span>
+          </button>
+        ))}
+    </nav>
+  );
 };
 
-export default function TabBar({ active, onChange, isAdmin }) {
-    return (
-        <nav className="tab-bar">
-            <button className={active === 'home' ? 'active' : ''} onClick={() => onChange('home')}>
-                {icons.home}
-                <span>Home</span>
-            </button>
-            <button className={active === 'vpn' ? 'active' : ''} onClick={() => onChange('vpn')}>
-                {icons.vpn}
-                <span>VPN</span>
-            </button>
-            {isAdmin && (
-                <>
-                    <button className={active === 'admin' ? 'active' : ''} onClick={() => onChange('admin')}>
-                        {icons.admin}
-                        <span>Admin</span>
-                    </button>
-                    <button className={active === 'users' ? 'active' : ''} onClick={() => onChange('users')}>
-                        {icons.users}
-                        <span>Users</span>
-                    </button>
-                </>
-            )}
-        </nav>
-    );
-}
+export default TabBar;

@@ -3,13 +3,14 @@ import Header from "./components/Header/Header";
 import { useTelegram } from "./hooks/useTelegram";
 import TabBar from "./components/TabBar/TabBar";
 import './App.css';
+import './modern.css';
 import AdminTab from './components/AdminTab';
 import VpnTab from './components/VpnTab';
 
 const ADMIN_ID = 430892673;
 const API_URL = "https://beznegativa.space:3000/users";
 const MARZBAN_API_URL = 'https://beznegativa.space:8000/api';
-const ADMIN_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFZ29yIiwiYWNjZXNzIjoic3VkbyIsImlhdCI6MTc0NDcyMzc4MywiZXhwIjoxNzQ0ODEwMTgzfQ.yWNZkn_Cc4C4M9F6vJWzm5wFxEtD24dmtp0PCPcqJXY';
+const ADMIN_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFZ29yIiwiYWNjZXNzIjoic3VkbyIsImlhdCI6MTc0NDgyNTA4MiwiZXhwIjoxNzQ0OTExNDgyfQ.JStXg45lfBkmbPJ34ol0Gyzdb9jGODSFfYCsDtGvVCE';
 
 function UserCard({ user }) {
     const [vpnStatus, setVpnStatus] = useState(null);
@@ -259,14 +260,15 @@ function HomeTab({ user, onChangeTab }) {
     return (
         <div style={{display:'flex',flexDirection:'column',alignItems:'center',marginTop:48}}>
             <img
-                src={user.photo_url || 'https://via.placeholder.com/100?text=No+Photo'}
+                src={user.photo_url || 'https://via.placeholder.com/120?text=No+Photo'}
                 alt="Фото"
-                style={{width:100,height:100,borderRadius:'50%',marginBottom:12,border:'3px solid #333'}}
+                style={{width:120,height:120,borderRadius:'50%',marginBottom:12,border:'none',objectFit:'cover'}}
             />
-            <div style={{fontWeight:700,fontSize:'1.3em',color:'#fff'}}>{user.username}</div>
-            
-            {/* Информация о VPN подписке */}
-            <div style={{marginTop:24,width:'100%',maxWidth:340,background:'#23232b',padding:20,borderRadius:16,boxShadow:'0 2px 12px rgba(0,0,0,0.11)'}}>
+            <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:4}}>
+              <div style={{fontWeight:700,fontSize:'2.2em',color:'#fff',letterSpacing:1}}>{user.username}</div>
+              <svg width="26" height="26" fill="none" viewBox="0 0 24 24" style={{color:'#fff',opacity:0.8,cursor:'pointer'}}><path d="M19.14,12.94a7.14,7.14,0,0,0,.06-1,7.14,7.14,0,0,0-.06-1l2.11-1.65a.5.5,0,0,0,.12-.64l-2-3.46a.5.5,0,0,0-.61-.22l-2.49,1a7,7,0,0,0-1.73-1l-.38-2.65A.5.5,0,0,0,13,2h-4a.5.5,0,0,0-.5.42l-.38,2.65a7,7,0,0,0-1.73,1l-2.49-1a.5.5,0,0,0-.61.22l-2,3.46a.5.5,0,0,0,.12.64L4.86,10a7.14,7.14,0,0,0-.06,1,7.14,7.14,0,0,0,.06,1L2.75,13.65a.5.5,0,0,0-.12.64l2,3.46a.5.5,0,0,0,.61.22l2.49-1a7,7,0,0,0,1.73,1l.38,2.65A.5.5,0,0,0,9,22h4a.5.5,0,0,0,.5-.42l.38-2.65a7,7,0,0,0,1.73-1l2.49,1a.5.5,0,0,0,.61-.22l2-3.46a.5.5,0,0,0-.12-.64ZM12,15.5A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" fill="#fff"/></svg>
+            </div>
+            <div className="status-card">
                 <h3 style={{color:'#fff',textAlign:'center',marginTop:0,marginBottom:16}}>Статус VPN</h3>
                 
                 {loading ? (
@@ -304,7 +306,7 @@ function HomeTab({ user, onChangeTab }) {
                         <div style={{marginTop:12}}>
                             <button 
                                 onClick={() => onChangeTab('vpn')}
-                                style={{padding:'8px 16px',background:'#4da6ff',color:'#fff',border:'none',borderRadius:8,cursor:'pointer'}}
+                                className="button"
                             >
                                 Активировать VPN
                             </button>
@@ -375,7 +377,7 @@ function App() {
                     <UserGrid users={users} />
                 )
             )}
-            <TabBar active={tab} onChange={setTab} isAdmin={user?.id === ADMIN_ID} />
+            <TabBar activeTab={tab} onChangeTab={setTab} isAdmin={user?.id === ADMIN_ID} />
         </div>
     );
 }

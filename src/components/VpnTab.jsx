@@ -4,7 +4,7 @@ import { useTelegram } from '../hooks/useTelegram';
 // URL для API Marzban
 const MARZBAN_API_URL = 'https://beznegativa.space:8000/api';
 const MARZBAN_USER_URL = 'https://beznegativa.space:8000/api/user';
-const ADMIN_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFZ29yIiwiYWNjZXNzIjoic3VkbyIsImlhdCI6MTc0NDcyMzc4MywiZXhwIjoxNzQ0ODEwMTgzfQ.yWNZkn_Cc4C4M9F6vJWzm5wFxEtD24dmtp0PCPcqJXY';
+const ADMIN_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFZ29yIiwiYWNjZXNzIjoic3VkbyIsImlhdCI6MTc0NDgyMTE0MywiZXhwIjoxNzQ0OTA3NTQzfQ.W1mUz_I-RFbEBge1Xe3gU-IQMvrSOoEncup52f2sIvw';
 
 // Секретный ключ активации
 const ACTIVATION_KEY = 'byzxvizi';
@@ -18,6 +18,8 @@ export default function VpnTab() {
   const [error, setError] = useState('');
   const [activated, setActivated] = useState(false);
   const [creatingUser, setCreatingUser] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [activePlatform, setActivePlatform] = useState('ios');
 
   // Проверяем, есть ли пользователь в Marzban по его Telegram ID
   useEffect(() => {
@@ -286,6 +288,133 @@ export default function VpnTab() {
           </button>
         </div>
         
+        {/* Раскрывающийся блок с инструкциями */}
+        <div style={{padding:12,background:'#2a2a33',borderRadius:8,marginBottom:16}}>
+          <button 
+            onClick={() => setShowInstructions(!showInstructions)}
+            style={{
+              width:'100%',
+              padding:8,
+              borderRadius:8,
+              background:'transparent',
+              color:'#fff',
+              border:'1px solid #444',
+              fontWeight:600,
+              fontSize:'0.9em',
+              cursor:'pointer',
+              display:'flex',
+              justifyContent:'space-between',
+              alignItems:'center'
+            }}
+          >
+            <span>Инструкция по настройке</span>
+            <span style={{transition:'transform 0.3s', transform: showInstructions ? 'rotate(180deg)' : 'rotate(0deg)'}}>▼</span>
+          </button>
+          
+          {showInstructions && (
+            <div style={{marginTop:12}}>
+              <div style={{display:'flex',gap:8,marginBottom:12}}>
+                <button 
+                  onClick={() => setActivePlatform('ios')}
+                  style={{
+                    padding:'6px 12px',
+                    borderRadius:8,
+                    background: activePlatform === 'ios' ? '#4da6ff' : 'transparent',
+                    color: activePlatform === 'ios' ? '#fff' : '#bbb',
+                    border: activePlatform === 'ios' ? 'none' : '1px solid #444',
+                    cursor:'pointer',
+                    flex:1
+                  }}
+                >
+                  iOS
+                </button>
+                <button 
+                  onClick={() => setActivePlatform('android')}
+                  style={{
+                    padding:'6px 12px',
+                    borderRadius:8,
+                    background: activePlatform === 'android' ? '#4da6ff' : 'transparent',
+                    color: activePlatform === 'android' ? '#fff' : '#bbb',
+                    border: activePlatform === 'android' ? 'none' : '1px solid #444',
+                    cursor:'pointer',
+                    flex:1
+                  }}
+                >
+                  Android
+                </button>
+                <button 
+                  onClick={() => setActivePlatform('windows')}
+                  style={{
+                    padding:'6px 12px',
+                    borderRadius:8,
+                    background: activePlatform === 'windows' ? '#4da6ff' : 'transparent',
+                    color: activePlatform === 'windows' ? '#fff' : '#bbb',
+                    border: activePlatform === 'windows' ? 'none' : '1px solid #444',
+                    cursor:'pointer',
+                    flex:1
+                  }}
+                >
+                  Windows
+                </button>
+              </div>
+              
+              {activePlatform === 'ios' && (
+                <div style={{color:'#fff'}}>
+                  <div style={{marginBottom:12}}>
+                    1. Скачайте приложение Streisand из App Store
+                  </div>
+                  <a 
+                    href="https://apps.apple.com/app/streisand/id6450534064" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{
+                      display:'block',
+                      marginBottom:12,
+                      textAlign:'center'
+                    }}
+                  >
+                    <img 
+                      src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+                      alt="Download on the App Store" 
+                      style={{height:40}}
+                    />
+                  </a>
+                  <div style={{marginBottom:12}}>
+                    2. Откройте приложение и нажмите на "+" в правом верхнем углу
+                  </div>
+                  <div style={{marginBottom:12}}>
+                    3. Выберите "Импортировать из буфера обмена" или "Сканировать QR-код"
+                  </div>
+                  <div style={{marginBottom:12}}>
+                    4. Вставьте скопированную ссылку подписки или отсканируйте QR-код
+                  </div>
+                  <img 
+                    src={`${process.env.PUBLIC_URL}/exm.jpg`}
+                    alt="Streisand iOS App" 
+                    style={{width:'100%', borderRadius:8, marginTop:12, marginBottom:12}} 
+                  />
+                </div>
+              )}
+              
+              {activePlatform === 'android' && (
+                <div style={{color:'#fff'}}>
+                  <div style={{padding:12, textAlign:'center'}}>
+                    Инструкции для Android будут доступны в ближайшее время
+                  </div>
+                </div>
+              )}
+              
+              {activePlatform === 'windows' && (
+                <div style={{color:'#fff'}}>
+                  <div style={{padding:12, textAlign:'center'}}>
+                    Инструкции для Windows будут доступны в ближайшее время
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        
         <div style={{color:'#aaa',fontSize:'0.9em',textAlign:'center'}}>
           <p>Используйте эту ссылку для настройки VPN в вашем клиенте.</p>
           <p>Срок действия: 30 дней</p>
@@ -314,10 +443,32 @@ export default function VpnTab() {
         
         <button 
           type="submit" 
-          style={{width:'100%',padding:10,borderRadius:8,background:'#4da6ff',color:'#fff',border:'none',fontWeight:600,fontSize:'1em',cursor:'pointer'}}
+          style={{width:'100%',padding:10,borderRadius:8,background:'#4da6ff',color:'#fff',border:'none',fontWeight:600,fontSize:'1em',cursor:'pointer',marginBottom:16}}
         >
           Активировать
         </button>
+        
+        <a 
+          href="https://funpay.com/users/3051490/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{
+            display:'block',
+            width:'100%',
+            padding:10,
+            borderRadius:8,
+            background:'#4caf50',
+            color:'#fff',
+            border:'none',
+            fontWeight:600,
+            fontSize:'1em',
+            cursor:'pointer',
+            textDecoration:'none',
+            textAlign:'center'
+          }}
+        >
+          Купить ключ
+        </a>
       </form>
       
       <div style={{color:'#aaa',fontSize:'0.9em',textAlign:'center',marginTop:16}}>
