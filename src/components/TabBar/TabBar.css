@@ -1,0 +1,40 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: #18181c;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #222;
+  z-index: 100;
+}
+.tab-bar button {
+  background: none;
+  border: none;
+  color: #fff;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  height: 100%;
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.tab-bar button.active, .tab-bar button:focus {
+  opacity: 1;
+  color: #4da6ff;
+}
+.tab-bar span {
+  font-size: 1.25em;
+}
+.tab-bar button span:last-child {
+  font-size: 0.85em;
+  margin-top: 2px;
+}

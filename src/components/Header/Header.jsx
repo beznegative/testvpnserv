@@ -4,14 +4,12 @@ import {useTelegram} from "../../hooks/useTelegram";
 import './Header.css';
 
 const Header = () => {
-    const {user, onClose} = useTelegram();
-
+    const {onClose} = useTelegram();
     return (
-        <div className={'header'}>
-            <Button onClick={onClose}>Закрыть</Button>
-            <span className={'username'}>
-                {user?.username}
-            </span>
+        <div className={'header'} style={{display:'flex',justifyContent:'flex-end',alignItems:'center',height:52,padding:'0 10px'}}>
+            <Button onClick={onClose} style={{background:'none',border:'none',fontSize:28,lineHeight:1,color:'#fff',padding:0,cursor:'pointer'}}>
+                <span aria-label="Закрыть" role="img">✖️</span>
+            </Button>
         </div>
     );
 };
